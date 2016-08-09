@@ -1,0 +1,92 @@
+<head>
+    <title>Manual test console</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <style>
+        .center{position: absolute;margin: auto;top: 0;right: 0;bottom: 0;left: 0;width: 70%;height: 50%;text-align: center;}
+        .form-control{display:inline-block}
+        .basic::-webkit-input-placeholder { text-align: left;font-size: 1em;-webkit-transition-property: all;-webkit-transition-duration: 2s;}
+        input .basic:focus {color: white;opacity: 1;font-size: 1em;}
+        .centerPanel{position:relative;width:90%;height:50%;margin:5%;}
+        #centerPanelLeft{position:absolute;left:0;top:1em;width:46%;height:100%;margin:1%}
+        #centerPanelLeftTextArea{width:100%;height:100%;border:none;background-color:lightgray;box-shadow: 10px 10px 5px -5px gray;}
+        #centerPanelRightDisplay{width:100%;height:100%;border:none;background-color:lightgray;box-shadow: 10px 10px 5px -5px gray;}
+        #centerPanelRight{position:absolute;right:0;top:1em;width:46%;height:100%;margin:1%}
+    </style>
+    <script>
+        jQuery(document).ready(function ($) {
+            // click event of #run to fire request for manual testing
+            $("#run").click(function(){
+                var id = $("#id").val();
+                var url = $("#url").val();
+                var method = $('#method').val();
+                var requestBody = $('#centerPanelLeftTextArea').val();
+                try {
+                    requestBody = JSON.parse(requestBody);
+                }catch(err){alert(err);return;}
+                url = url.replace(":id",id);
+                $.ajax({
+                    url: url,
+                    method: method,
+                    data: requestBody,
+                    success: function(result){
+                        $("#centerPanelRightDisplay").text(JSON.stringify(result));
+                        alert("DONE");
+                    },
+                    error: function(err){
+                        $("#centerPanelRightDisplay").text("ERROR ACCORED, PLEASE CHECK \n" + err.statusText);
+                        alert("DONE");
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+<body style="font-size:1.5em;background-color:white;min-width:600px;min-height:768px">
+	<nav class="navbar navbar-inverse" style="box-shadow: 10px 10px 200px -20px rgba(255,80,80,1)">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Simple Manual Testing Console!!</a>
+		</div>
+		<ul class="nav navbar-nav" >
+			<li class="active" style="display:inline-block;margin:10px">
+                <input class="basic form-control" id="id" type=text placeholder="Vehicle ID" style="width:auto">
+                <select class="form-control list-group" id="url" style="width:auto">
+                    <option value="/vehicles/:id/doors">/vehicles/:id/doors</option>
+                    <option value="/vehicles/:id">/vehicles/:id</option>
+                    <option value="/vehicles/:id/fuel">/vehicles/:id/fuel</option>
+                    <option value="/vehicles/:id/battery">/vehicles/:id/battery</option>
+                    <option value="/vehicles/:id/engine">/vehicles/:id/engine</option>
+                </select>
+                <select class="form-control list-group" id="method" style="width:auto">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="DELETE">DELETE</option>
+                    <option value="PATCH">PATCH</option>
+                    <option value="PUT">PUT</option>
+                </select>
+                <button id="run" class="btn btn-success" style="margin:0;position:relative;top:-1px;height:1.5em;" ><p style="font-size:1em;position:relative;bottom:7px">FIRE</p></button>
+            </li>
+		</ul>
+		</div>
+	</nav>
+    <div class="centerPanel" name="centerPanel">
+        <div id="centerPanelLeft" name="centerPanelLeft">
+            <textarea id="centerPanelLeftTextArea">{"action": "START|STOP"}</textarea>
+        </div>
+        <label for="centerPanelLeft">Input The POST JSON body here to send with request::</label>
+        <div id="centerPanelRight" name="centerPanelRight">
+            <p id="centerPanelRightDisplay"></p>
+        </div>
+        <label for="centerPanelRight" style="float:right">::Observe the returned response from here</label>
+    </div>
+    <footer style="position:fixed;width:100%;height:40px;bottom:0">
+        <nav class="navbar navbar-inverse" style="margin:0;opacity:0.9;text-align:center;height:auto"><p style="color:white;margin:5px;">Chu Lin | piekittt@gmail.com</p>
+        </nav>
+    </footer>
+</body>

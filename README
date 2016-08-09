@@ -1,0 +1,63 @@
+PROJECT DESCRITION
+---------------------
+* Node JS practice
+* Smartcar interview
+* Author: Chu Lin
+* Email: pikeittt@gmail.com
+
+
+CONTENTS OF THIS FILE
+---------------------
+* Related files 
+* Setup and requirement
+* Start the server
+* Manual testing WebGui
+* Mocha test script
+* Troubleshooting
+
+
+RELATED FILES
+--------------------
+* server.js -> server JavaScript
+* index.html -> manual testing WebGui 
+* test.js -> unit test/function test and stress test of server.js
+* README -> this file
+
+
+SETUP AND REQUIREMENTS
+---------------------
+* This server is written in JavaScript and requires running in Node.js. Please go to https://nodejs.org/en/download/ to download the newest version of Node.js
+* After the installation, the node package manager should be available. Please run 'npm install xx' to install all necessary requirements.
+* The requirements for server.js are: 'http','express','path','request','body-parse'
+* The requirements for test.js are: 'mocha','supertest','should'
+
+
+START THE SERVER
+---------------------
+* To start the server, please run 'node server.js'. If the server started correctly, the console would display 'Service started on port %port : Chu Lin". 
+* If you wish to change the listening port of the server, please manually change the port constant at the 14th line of server.js
+* All connects to the server will be logged to the server console
+
+
+MANUAL TESTING WEBGUI
+---------------------
+* The default root url is pre-set to the index.html, which is a manual testing WebGui
+* On the top of WebGui, tester should enter the vehicle ID, choose desired API and select the method. The left gray textArea, on the center of page, is designed to capture the JSON strings that tester wishes to sent along with the request. The right gray display box,on the center of page, is used to observe the returned messages from the APIs.
+
+
+MOCHA TESTING SCRIPT
+--------------------
+* This script includes unit test/functional test and stress test.
+* And It is used to speed up the developing period. 
+* It has 5 testing blocks. 
+* The block, “Unit test Engine start/Stop remote” exams engine start/stop API. Since running a repeated test on Engine start/stop feature would potentially damage the engine, no loop is involved in the test.
+* The block “stress test xx” is a stress test for a specific API. It is used to ensure the API can last without error. 
+* If the tester wished to run a shorter/longer test, please modify constant stressTestLoop on the 10th line of test.js. 
+* The block: “Unit test Suit” is a general unit test on all APIs. It first randomly generates a valid url and a vehicle ID. Then, it will determine the validity of the returned data. 
+* If the tester wished to run a shorter/longer test, please modify constant generalTestLoops on the 11th line of test.js.
+
+
+
+TROUBLE SHOOTTING
+-------------------
+* If the server failed to start, please try a different listening port.
