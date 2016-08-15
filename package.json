@@ -1,0 +1,25 @@
+{
+  "name": "smartcar_api",
+  "version": "1.0.0",
+  "description": "\"Interview API practice\"",
+  "main": "server.js",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "express": "^4.14.0",
+    "path": "^0.12.7",
+    "http": "^0.0.0",
+    "request": "^2.74.0",
+    "should": "^10.0.0",
+    "body-parser": "^1.15.2",
+    "supertest": "^2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "author": "Chu Lin",
+  "license": "ISC"
+}
